@@ -1,0 +1,101 @@
+<?php include "config.php"; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Add Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #personal_formData{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Location Form</h1>
+    <form  method="POST" id="dependent_formData">
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" class="form-control" id="id" name="id" required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <select class="form-control" id="country" name="country" required>
+            <?php 
+                $sql = "SELECT * FROM countries";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    echo '<option value="">Select a country</option>';
+                    while($row = $result->fetch_assoc()) {
+                        echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No countries available</option>';
+                }
+            ?>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label for="state">State:</label>
+            <select class="form-control" id="state" name="state" required disabled>
+                <option value="">Select a state</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City:</label>
+            <select class="form-control" id="city" name="city" required disabled>
+                <option value="">Select a city</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+
+
+    <!-- personal_details form -->
+    <form id="personal_formData" method="POST">  
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="other" value="other">
+                    <label class="form-check-label" for="other">Other</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="asset/js/custom.js"></script>
+
+</body>
+</html>
